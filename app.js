@@ -9,9 +9,7 @@ const logger = require('koa-logger')
 onerror(app)
 
 // middlewares
-app.use(bodyparser({
-    enableTypes: ['json', 'form', 'text']
-}))
+app.use(bodyparser()) // { enableTypes: ['json', 'form', 'text']}
 app.use(json())
 app.use(logger())
 app.use(require('koa-static')(__dirname + '/public'))
@@ -25,8 +23,9 @@ app.use(async (ctx, next) => {
 })
 
 // routes
-app.use(require('./routes/index').routes())
-
+const router = require('./routes/index')
+app.use(router.routes())
+app.use(router.allowedMethods());
 // error-handling
 app.on('error', (err, ctx) => {
     console.error('server error', err, ctx)

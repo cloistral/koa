@@ -9,7 +9,7 @@ class BaseController {
         ctx.response.body = {
             code: param.code || 200,
             status: code !== 200 ? "error" : 'success',
-            message: code !== 200 ? '请求失败' : '请求成功',
+            message: code !== 200 ? (param.message?param.message:'请求失败') :(param.message?param.message:'请求成功') ,
             data: param.data
         }
     }
