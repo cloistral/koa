@@ -1,8 +1,16 @@
 <template>
-  <div id="app">
-    <router-view />
-  </div>
+    <div id="app">
+        <router-view />
+    </div>
 </template>
+
+<script>
+export default {
+  mounted() {
+    console.log(this.$message);
+  }
+};
+</script>
 
 <style>
 #app {
@@ -11,5 +19,4 @@
   height: 100vh;
   position: relative;
 }
-
 </style>

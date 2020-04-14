@@ -11,7 +11,7 @@
                          placeholder="请输入密码" />
             </a-form-item>
 
-            <a-form-item >
+            <a-form-item>
                 <a-button type="primary"
                           @click="check">
                     确认
@@ -23,37 +23,39 @@
 </template>
 
 <script>
-
-
 export default {
-    data() {
-        return {
-            checkNick: false,
-            form: this.$form.createForm(this,{ name: 'dynamic_rule' }),
-        };
-    },
-    methods: {
-        check() {
-            this.form.validateFields((err,values) => {
-                if(!err) {
-                    this.$http.post('/api/login',values)
-                        .then(res => {
-                            
-                    })
-                }
-            });
-        },
-       
-    },
+  data() {
+    return {
+      checkNick: false,
+      form: this.$form.createForm(this, { name: "dynamic_rule" })
+    };
+  },
+  methods: {
+    check() {
+      this.form.validateFields((err, values) => {
+        if (!err) {
+          this.$http.post("/api/login", values).then(res => {
+            if (res.code == 200) {
+              this.$message.success("登录成功", 2.5).then(() => {
+                this.$router.push("/index");
+              });
+            } else {
+              this.$message.error(res.message, 2.5);
+            }
+          });
+        }
+      });
+    }
+  }
 };
 </script>
 <style scoped>
 .login-body {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin: -200px;
-    width: 400px;
-    height: 400px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -200px;
+  width: 400px;
+  height: 400px;
 }
 </style>
